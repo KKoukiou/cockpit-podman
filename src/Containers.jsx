@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from "react-dom";
-import { Button, Badge, Card, CardBody, CardHeader, CardTitle, CardActions } from '@patternfly/react-core';
+import { Button, Label, Card, CardBody, CardHeader, CardTitle, CardActions } from '@patternfly/react-core';
 
 import cockpit from 'cockpit';
 import { ListingTable } from "../lib/cockpit-components-table.jsx";
@@ -154,7 +154,14 @@ class Containers extends React.Component {
             proc,
             mem,
             container.isSystem ? _("system") : this.props.user,
-            { title: <Badge isRead>{_(container.State)}</Badge> }, // States are defined in util.js
+            {
+                title: (
+                    <Label color={container.State == 'running' ? 'green' : undefined}
+                           className={"container-state container-state-" + container.State}>
+                        {_(container.State)}
+                    </Label>
+                )
+            }, // States are defined in util.js
         ];
 
         const tty = containerDetail ? containerDetail.Config.Tty : false;
@@ -487,7 +494,8 @@ class Containers extends React.Component {
                                                 <span>{_("pod group")}</span>
                                             </CardTitle>
                                             <CardActions className='panel-actions'>
-                                                <Badge isRead>{_(this.props.pods[section].Status)}</Badge>
+                                                <Label color={this.props.pods[section].Status == 'Running' ? 'green' : undefined}
+                                                       className={"pod-state-" + this.props.pods[section].Status.toLowerCase()}>{_(this.props.pods[section].Status)}</Label>
                                                 <PodActions onAddNotification={this.props.onAddNotification} pod={this.props.pods[section]} />
                                             </CardActions>
                                         </CardHeader>}
