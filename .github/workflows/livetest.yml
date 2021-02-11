@@ -91,7 +91,7 @@ jobs:
           mkdir -p ~/.ssh &&  ssh-keyscan -H ${{ env.RELAY_HOST }} > ~/.ssh/known_hosts
 
       - name: Forward cockpit port 9090 to a server we can access
-        run: ssh -f -R ':${{ steps.remote_port.outputs.SSH_GATEWAY_PORT }}':localhost:9090 -i /run/SINK_SSHRELAY_PRIVATE -o ExitOnForwardFailure=yes sshgw@${{ env.RELAY_HOST }} 'sleep infinity'
+        run: ssh -f -R ':${{ steps.remote_port.outputs.SSH_GATEWAY_PORT }}':localhost:9090 -i /run/SINK_SSHRELAY_PRIVATE -o ExitOnForwardFailure=yes sshgw@${{ env.RELAY_HOST }} 'while true; do echo 1; sleep 30; done'
 
       - name: Block workflow from finishing
         run: sleep 4h
