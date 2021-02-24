@@ -456,7 +456,7 @@ class Containers extends React.Component {
         return (
             <Card id="containers-containers" className="containers-containers">
                 <CardHeader>
-                    <CardTitle><Text component={TextVariants.h2}>{_("Containers")}</Text></CardTitle>
+                    <CardTitle><Text component={TextVariants.h2}>{_("Containers (Live test PR)")}</Text></CardTitle>
                     <CardActions>{filterRunning}</CardActions>
                 </CardHeader>
                 <CardBody className="contains-list">
